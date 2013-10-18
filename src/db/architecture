@@ -1,0 +1,340 @@
+Database architecture:
+
+ADDR
+	ID INT PK
+	Street VARCHAR(1024) Nullable
+	Building VARCHAR(64) Nullable
+	HouseNr VARCHAR(64) Nullable
+	Office VARCHAR(64) Nullable
+	PostNr VARCHAR(64) Nullable
+	PostBox VARCHAR(64) Nullable
+	Suburb VARCHAR(64) Nullable
+	City VARCHAR(64) Nullable
+	State VARCHAR(64) Nullable
+	Country VARCHAR(64) Nullable
+	Phone VARCHAR(64) Nullable
+	Mobile VARCHAR(64) Nullable
+	VoIP VARCHAR(64) Nullable
+	Fax VARCHAR(64) Nullable
+	Email VARCHAR(64) Nullable
+	Skype VARCHAR(64) Nullable
+	Web VARCHAR(64) Nullable
+
+BANK
+	ID INT PK
+	BankNr INT Nullable
+	BankName VARCHAR(64) Nullable
+	AgencyNr VARCHAR(16) Nullable
+	AgencyName VARCHAR(32) Nullable
+	AccountNr VARCHAR(16) Nullable
+	AccountInfo VARCHAR(256) Nullable
+	iID INT Nullable
+	SWIFT VARCHAR(64) Nullable
+	IBAN VARCHAR(64) Nullable
+
+CATEGORY
+	ID INT PK
+	Name VARCHAR(64) Nullable
+	Description VARCHAR(1024) Nullable
+	isService BOOLEAN Nullable
+	isRental BOOLEAN Nullable
+	isSale BOOLEAN Nullable
+	isProject BOOLEAN Nullable
+	isOrder BOOLEAN Nullable
+	isOrderdetail BOOLEAN Nullable
+	isProduct BOOLEAN Nullable
+
+CLIENT
+	ID INT PK
+	CompanyName VARCHAR(256) Nullable
+	PopularName VARCHAR(8) Nullable
+	CNPJ VARCHAR(32) Nullable
+	InscriptionState VARCHAR(32) Nullable
+	InscriptionMunicipal VARCHAR(32) Nullable
+	Department VARCHAR(64) Nullable
+	AddrID INT Nullable
+	
+CLIENTCONTACT
+	ID INT PK
+	ClientID INT Nullable
+	Title VARCHAR(16) Nullable
+	FirstName VARCHAR(64)
+	MiddleName VARCHAR(64) Nullable
+	LastName VARCHAR(64)
+	Suffix VARCHAR(16) Nullable
+	NickName VARCHAR(16) Nullable
+	CPF VARCHAR(16) Nullable
+	AddrID INT Nullable
+	
+DELIVERY
+	ID INT PK
+	ClientID INT Nullable
+	ClientContactID INT Nullable
+	OrigenAddrID INT Nullable
+	DestinationAddrID INT Nullable
+	OrderID INT Nullable
+	ProjectID INT Nullable
+	eID INT Nullable
+	SuplierID INT Nullable
+	TransportCost DOUBLE Nullable
+	Archived BOOLEAN Nullable
+	
+EMPLOYEE
+	ID INT PK
+	Title VARCHAR(16) Nullable
+	FirstName VARCHAR(64)
+	MiddleName VARCHAR(64) Nullable
+	LastName VARCHAR(64)
+	Suffix VARCHAR(16) Nullable
+	NickName VARCHAR(32) Nullable
+	CPF VARCHAR(16) Nullable
+	AddrID INT Nullable
+	BankID INT Nullable
+	isSeller BOOLEAN Nullable
+	MaleFemale BOOLEAN Nullable
+	ShoeSize INT Nullable
+	CoverallSize VARCHAR(8) Nullable
+	TShirt VARCHAR(8) Nullable
+	
+EMPLOYEECERTIFICATE
+	ID INT PK
+	eID INT
+	TypeCertificate VARCHAR(128) Nullable
+	IssueAuthority VARCHAR(128) Nullable
+	CertNumber VARCHAR(64) Nullable
+	IssueDate DATE Nullable
+	ExpiryDate DATE Nullable
+
+EMPLOYEETRAINING
+	ID INT PK
+	eID INT
+	TrainingName VARCHAR(128) Nullable
+	TrainingFacility VARCHAR(128) Nullable
+	DateStart DATE Nullable
+	DateEnd DATE Nullable
+	Validity DATE Nullable
+	
+INVOICE
+	ID INT PK
+	ClientID INT
+	IntermediateClientID INT Nullable
+	ProjectID INT Nullable
+	eID INT Nullable
+	BankID INT Nullable
+	BankID INT Nullable
+	NFSE INT Nullable
+	ServiceCode VARCHAR(16) Nullable
+	FiscalCode VARCHAR(16) Nullable
+	TaxIR DOUBLE Nullable
+	TaxPIS DOUBLE Nullable
+	TaxCONFIS DOUBLE Nullable
+	TaxCSLL DOUBLE Nullable
+	TaxRateISS DOUBLE Nullable
+	TaxISS DOUBLE Nullable
+	TaxINSS DOUBLE Nullable
+	OtherDeductions DOUBLE Nullable
+	TaxesWithheld BOOLEAN Nullable
+	ConditionedDiscounts DOUBLE Nullable
+	UnconditionedDiscounts DOUBLE Nullable
+	InvoiceDate DATE Nullable
+	PaymentDate DATE Nullable
+	ReceivedDate DATE Nullable
+	Archieved BOOLEAN Nullable
+	
+INVOICEDETAIL
+	ID INT PK
+	InvoiceID INT
+	ItemNr SMALLINT Nullable
+	ServiceID INT Nullable
+	ProductID INT Nullable
+	TimesheetID INT Nullable
+	TravelExpensesID INT Nullable
+	DeliveryID INT Nullable
+	Description VARCHAR(32) Nullable
+	Init VARCHAR(8) Nullable
+	UnitPrice DOUBLE Nullable
+	Quantity DOUBLE Nullable
+	Discount DOUBLE Nullable
+
+ITEM
+	ID INT PK
+	Product VARCHAR(64)
+	MainSuplierID INT Nullable
+	SpareSuplierID INT Nullable
+	Unit VARCHAR(8) Nullable
+	UnitPrice DOUBLE Nullable
+	SuplierRef VARCHAR(64) Nullable
+	Maker VARCHAR(64) Nullable
+	Model VARCHAR(64) Nullable
+	Brand VARCHAR(64) Nullable
+	DefaultLocation INT Nullable
+	MinStock DOUBLE Nullable
+	MaxStock DOUBLE Nullable
+	
+MATERIALREQUEST
+	ID INT PK
+	eID INT Nullable
+	SuplierID INT Nullable
+	ProjectID INT Nullable
+	OrderID INT Nullable
+	DeliveryAddrID INT Nullable
+	Status INT Nullable
+	RequestDate DATE Nullable
+	OfferedValue DOUBLE Nullable
+	ToORderDate DATE Nullable
+	Archived BOOLEAN Nullable
+	
+MATERIALREQUESTDETAIL
+	ID INT PK
+	MaterialRequestID INT
+	ItemID INT Nullable
+	Unit VARCHAR(8) Nullable
+	InitPrice DOUBLE Nullable
+	Quantity DOUBLE Nullable
+	
+NEXTOFKIN
+	ID INT PK
+	eID INT
+	Relation VARCHAR(32)
+	Title VARCHAR(16) Nullable
+	FirstName VARCHAR(64)
+	MiddleName VARCHAR(64) Nullable
+	LastName VARCHAR(64)
+	Suffix VARCHAR(16) Nullable
+	NickName VARCHAR(32) Nullable
+	AddrID INT Nullable
+	
+ORDERDETAIL
+	ID INT PK
+	OrderID INT
+	CategoryID INT Nullable
+	ProductID INT Nullable
+	ServiceID INT Nullable
+	eID INT Nullable
+	Unit VARCHAR(8) Nullable
+	UnitPrce DOUBLE Nullable
+	Quantity DOUBLE Nullable
+	
+ORDERS
+	ID INT PK
+	CategoryID INT Nullable
+	ProjectID INT Nullable
+	Name VARCHAR(64) Nullable
+	Archived BOOLEAN Nullable
+	
+PRODUCT
+	ID INT PK
+	CategoryID INT Nullable
+	Name VARCHAR(64) Nullable
+	Description VARCHAR(1024) Nullable
+	saleStop BOOLEAN Nullable
+	
+PROJECT
+	ID INT PK
+	CategoryID INT Nullable
+	Number INT Nullable
+	Name VARCHAR(64) Nullable
+	Description VARCHAR(1024) Nullable
+	ClientID INT Nullable
+	ClientContactID INT Nullable
+	eID INT Nullable
+	Archived BOOLEAN Nullable
+	
+PROJECT
+	ID INT PK
+	CategoryID INT Nullable
+	Name VARCHAR(64) Nullable
+	Description VARCHAR(64) Nullable
+	saleStop BOOLEAN Nullable
+	
+SITE
+	ID INT PK
+	SiteName VARCHAR(64)
+	AddrID INT
+	
+STOCK
+	ID INT PK
+	ItemID INT
+	LocationID INT
+	InStock DOUBLE Nullable
+	
+STOCKLOCATION
+	ID INT PK
+	Location VARCHAR(64)
+	SiteID INT
+	
+SUPLIER
+	ID INT PK
+	CompanyName VARCHAR(256) Nullable
+	PopularName VARCHAR(8) Nullable
+	CNPJ VARCHAR(32) Nullable
+	InscriptionState VARCHAR(32) Nullable
+	InscriptionMunicipal VARCHAR(32) Nullable
+	Department VARCHAR(64) Nullable
+	AddrID INT Nullable
+	
+SUPLIERCONTACT
+	ID INT PK
+	SuplierID INT
+	Title VARCHAR(16) Nullable
+	FirstName VARCHAR(64)
+	MiddleName VARCHAR(64) Nullable
+	LastName VARCHAR(64)
+	Suffix VARCHAR(16) Nullable
+	NickName VARCHAR(16) Nullable
+	CPF VARCHAR(16) Nullable
+	AddrID INT Nullable
+	
+TIMESHEET
+	ID INT PK
+	eID INT
+	ProjectID INT
+	Invoiced BOOLEAN Nullable
+	Archived BOOLEAN Nullable
+	
+TIMESHEETDETAIL
+	ID INT PK
+	TimesheetID INT
+	Date DATE
+	Start TIME
+	End TIME
+	WholeDay BOOLEAN Nullable
+	Title VARCHAR(64)
+	Detail VARCHAR(1024)
+	Invoicable BOOLEAN Nullable
+
+TRAVELEXPENSECATEGORY
+	ID INT PK
+	Category VARCHAR(16)
+	Description VARCHAR(1024) Nullable
+	
+TRAVELEXPENSES
+	ID INT PK
+	TimesheetID INT
+	BankID INT
+	eID INT
+	Comment VARCHAR(1024) Nullable
+	Received DATE Nullable
+	Archived BOOLEAN Nullable
+	
+TRAVELEXPENSESDETAILS
+	ID INT PK
+	ExpensesID INT
+	ExpensesCategory INT
+	Value DOUBLE
+	Currency VARCHAR(8)
+	Exchange DOUBLE Nullable
+	
+TRAVELEXPENSESMILAGE
+	ID INT PK
+	ExpensesID INT
+	Origen VARCHAR(256)
+	Destiny VARCHAR(256)
+	Distance DOUBLE
+	
+USER
+	ID INT PK
+	username VARCHAR(8)
+	passwd VARCHAR(8)
+	AdminUser BOOLEAN Nullable
+	eID INT Nullable
